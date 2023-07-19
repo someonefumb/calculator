@@ -1,67 +1,53 @@
 let operatorFunc = true;
-let num1 = 0;
-let num2 = 0;
+let num1 = '';
+let num2 = '';
 let operator = "";
+let operatorSign;
 
-const bod = document.querySelector('body')
-const output = document.createElement('p')
-bod.appendChild(output);
-const output2 = document.createElement('p')
-bod.appendChild(output2);
-const output3 = document.createElement('p')
-bod.appendChild(output3);
+const result1 = document.querySelector('#one')
+const result2 = document.querySelector('#two')
+result2.textContent = 0;
 
 const btns = document.querySelectorAll("button");
 btns.forEach(function(button) {
 	button.addEventListener('click', () => {
-		if (button.id === "numberBtn") {
-			if (operatorFunc === true) {
-				num1 = button.textContent;
-				output.textContent += num1;
-				num1 = +output.textContent;
-			} else {
-				num2 = button.textContent;
-				output2.textContent += num2;
-				num2 = +output2.textContent;
-			}
-		} else if (button.id === 'equals') {
-				output3.textContent = output.textContent + output2.textContent + `=${operate(operator)}`;
-		} else {
+		if (button.id === "operateBtn" && !num2) {
+			operatorFunc = false;
+			operatorSign = button.textContent;
+			result1.textContent = `${num1}  ${operatorSign} `;
 			switch(button.className) {
 				case "add":
-					operatorFunc = false;
-					output.textContent += '+';
-					return operator = "ADD"
+					return operator = "add"
 				case "subtract":
-					operatorFunc = false;
-					output.textContent += '-';
-					return operator = "SUBTRACT"
+					return operator = "subtract";
 				case "multiply":
-					operatorFunc = false;
-					output.textContent += '*';
-					return operator = "MULTIPLY"
+					return operator = 'multiply';
 				case "divide":
-					operatorFunc = false;
-					output.textContent += '/';
-					return operator = "DIVIDE"
+					return operator = "divide";
 			}
+		} else if (button.id === "numberBtn" && operatorFunc === true) {
+			num1 += button.textContent;
+			result1.textContent = num1;
+			result2.textContent = num1;
+		} else if (button.id === "numberBtn" && !operatorFunc) {
+			num2 = button.textContent;
+			result1.textContent += num2;
+			result2.textContent = num2;
 		}
 	})
 })
 
+
 function operate(operator) {
+	operatorFunc = true;
     switch (operator) {
-        case "ADD":
-			operatorFunc = true;
+        case "add":
             return num1 + num2;
-        case "SUBTRACT":
-			operatorFunc = true;
+        case "subtract":
             return num1 - num2;
-        case "MULTIPLY":
-			operatorFunc = true;
+        case "multiply":
             return num1 * num2;
-        case "DIVIDE":
-			operatorFunc = true;
+        case "divide":
             return num1 / num2;
     }
 }

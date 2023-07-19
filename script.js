@@ -11,7 +11,7 @@ result2.textContent = 0;
 const btns = document.querySelectorAll("button");
 btns.forEach(function(button) {
 	button.addEventListener('click', () => {
-		if (button.id === "operateBtn" && !num2) {
+		if (button.id === "operateBtn" && operatorFunc === true) {
 			operatorFunc = false;
 			operatorSign = button.textContent;
 			result1.textContent = `${num1}  ${operatorSign} `;
@@ -26,23 +26,28 @@ btns.forEach(function(button) {
 					return operator = "divide";
 			}
 		} else if (button.id === "numberBtn" && operatorFunc === true) {
-			num1 += button.textContent;
+			num1 += +button.textContent;
 			result1.textContent = num1;
 			result2.textContent = num1;
 		} else if (button.id === "numberBtn" && !operatorFunc) {
-			num2 = button.textContent;
-			result1.textContent += num2;
+			num2 += +button.textContent;
+			result1.textContent = `${num1}  ${operatorSign} ${num2}`;
 			result2.textContent = num2;
+		} else if (button.id === "equalBtn") {
+			result1.textContent = `${num1}  ${operatorSign} ${num2} =`;
+			result2.textContent = operate(operator);
+			num1 = '';
+			num2 = '';
+			operatorFunc = true;
 		}
 	})
 })
-
 
 function operate(operator) {
 	operatorFunc = true;
     switch (operator) {
         case "add":
-            return num1 + num2;
+            return +num1 + +num2;
         case "subtract":
             return num1 - num2;
         case "multiply":

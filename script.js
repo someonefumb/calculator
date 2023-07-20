@@ -6,6 +6,7 @@ let operatorSign;
 let temp = '';
 let temp2 = '';
 let executed = false;
+let order = false;
 
 const result1 = document.querySelector('#one')
 const result2 = document.querySelector('#two')
@@ -31,7 +32,15 @@ numBtns.forEach(function(button) {
 const operBtns = document.querySelectorAll("button#operateBtn");
 operBtns.forEach(function(button) {
 	button.addEventListener('click', () => {
-		if (executed === true) {
+		if(num1 !== '' && num2 !== '' && order === true) {
+			temp = operate(operator, num1, num2);
+			num1 = temp;
+			firstNumAndOp(button.textContent);
+			getOperator(button.className);
+			result2.textContent = temp;
+			num2 = '';
+			order = false;
+		} else if (executed === true) {
 			num1 = temp;
 			num2 = '';
 			firstNumAndOp(button.textContent);
@@ -41,13 +50,14 @@ operBtns.forEach(function(button) {
 			firstNumAndOp(button.textContent);
 			getOperator(button.className);
 		} else if (num2 === '') {
-		firstNumAndOp(button.textContent);
-		getOperator(button.className);
+			firstNumAndOp(button.textContent);
+			getOperator(button.className);
 		} else {
 			num2 = '';
 			firstNumAndOp(button.textContent);
 			getOperator(button.className);
 		}
+		order = true;
 	})
 })
 
@@ -64,6 +74,7 @@ equalBtn.forEach(function(button) {
 			result1.textContent = `${temp}  ${operatorSign} ${num2} =`;
 			result2.textContent = operate(operator, temp, num2);
 			temp = result2.textContent;
+			num1 = '';
 			return;
 		} else if(num2 === '') {
 			num2 = num1;

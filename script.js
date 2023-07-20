@@ -185,7 +185,25 @@ equalBtn.addEventListener('click', () => {
 })
 
 document.addEventListener('keydown', (event) => {
-	console.log(event);
+	if (event.code.includes("Digit")) {
+		getNum(event.key);
+	} else if (event.key === '+') {
+		getOperator(event.key, "add");
+	} else if (event.key === '-') {
+		getOperator(event.key, "subtract");
+	} else if (event.key === '*') {
+		getOperator(event.key, "multiply");
+	} else if (event.key === '/') {
+		getOperator(event.key, "divide");
+	} else if (event.key === '=' || event.key === 'Enter') {
+		equalsOper();
+	} else if (event.key === '.') {
+		decimalOper();
+	} else if (event.key === 'c') {
+		clear();
+	} else if (event.key === 'Backspace') {
+		backOper();
+	}
 })
 
 function operate(operator, num1, num2) {

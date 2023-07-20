@@ -27,6 +27,31 @@ clearBtn.addEventListener('click', () => {
 	order = false;
 });
 
+const backBtn = document.querySelector('#backBtn');
+backBtn.addEventListener('click', () => {
+	if (operatorFunc === true) {
+		if (num1 === '0') {
+			return;
+		} else if (num1.length === 1) {
+			num1 = 0;
+			result2.textContent = num1;
+		} else {
+			num1 = num1.substring(0, num1.length-1);
+			result2.textContent = num1;
+		}
+	} else if (!operatorFunc) {
+		if (num2 === '0') {
+			return;
+		} else if (num2.length === 1) {
+			num2 = 0;
+			result2.textContent = num2;
+		} else {
+			num2 = num2.substring(0, num2.length-1);
+			result2.textContent = num2;
+		}
+	}
+});
+
 const numBtns = document.querySelectorAll("button#numberBtn");
 numBtns.forEach(function(button) {
 	button.addEventListener('click', () => {
@@ -38,8 +63,8 @@ numBtns.forEach(function(button) {
 			result2.textContent = num1;
 			num2 = '';
 		} else if (!operatorFunc) {
+			if(num2 === '0') num2 = '';
 			num2 += button.textContent;
-			result1.textContent = `${num1}  ${operatorSign} ${num2}`;
 			result2.textContent = num2;
 		}
 	})
@@ -105,7 +130,6 @@ equalBtn.addEventListener('click', () => {
 	}
 })
 
-
 const btns = document.querySelectorAll("button");
 btns.forEach(function(button) {
 	button.addEventListener('click', () => {
@@ -115,7 +139,6 @@ btns.forEach(function(button) {
 		console.log(`temp2 ${temp2}`);
 	})
 })
-
 
 function firstNumAndOp(textContent, name) {
 	operatorFunc = false;

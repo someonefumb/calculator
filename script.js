@@ -12,6 +12,21 @@ const result1 = document.querySelector('#one')
 const result2 = document.querySelector('#two')
 result2.textContent = 0;
 
+const clearBtn = document.querySelector('#clearBtn');
+clearBtn.addEventListener('click', () => {
+	num1 = '0';
+	num2 = '';
+	result1.textContent = '';
+	result2.textContent = 0;
+	operatorFunc = true;
+	operator = "";
+	operatorSign;
+	temp = '';
+	temp2 = '';
+	executed = false;
+	order = false;
+});
+
 const numBtns = document.querySelectorAll("button#numberBtn");
 numBtns.forEach(function(button) {
 	button.addEventListener('click', () => {
@@ -101,13 +116,6 @@ btns.forEach(function(button) {
 	})
 })
 
-const clearBtn = document.querySelector('#clearBtn');
-clearBtn.addEventListener('click', () => {
-	num1 = '0';
-	num2 = ''
-	result1.textContent = '';
-	result2.textContent = 0;
-})
 
 function firstNumAndOp(textContent, name) {
 	operatorFunc = false;

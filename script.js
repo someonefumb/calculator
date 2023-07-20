@@ -57,40 +57,39 @@ operBtns.forEach(function(button) {
 	})
 })
 
-const equalBtn = document.querySelectorAll("#equalBtn");
-equalBtn.forEach(function(button) {
-	button.addEventListener('click', () => {
-		if (!operatorSign) {
-			result1.textContent = `${num1} =`;
-			result2.textContent = num1;
-			return;
-		} else if (executed === true){
-			num2 = temp2;
-			result1.textContent = `${temp}  ${operatorSign} ${num2} =`;
-			result2.textContent = operate(operator, temp, num2);
-			temp = result2.textContent;
-			num1 = '';
-			return;
-		} else if(num2 === '') {
-			num2 = num1;
-			temp2 = num2;
-			result1.textContent = `${num1}  ${operatorSign} ${num2} =`;
-			result2.textContent = operate(operator, num1, num2);
-			temp = result2.textContent;
-			num1 = '';
-			executed = true;
-			return;
-		} else {
-			result1.textContent = `${num1}  ${operatorSign} ${num2} =`;
-			result2.textContent = operate(operator, num1, num2);
-			temp = result2.textContent;
-			temp2 = num2;
-			num1 = '';
-			num2 = '';
-			executed = true;
-		}
-	})
+const equalBtn = document.querySelector("#equalBtn");
+equalBtn.addEventListener('click', () => {
+	if (!operatorSign) {
+		result1.textContent = `${num1} =`;
+		result2.textContent = num1;
+		return;
+	} else if (executed === true){
+		num2 = temp2;
+		result1.textContent = `${temp}  ${operatorSign} ${num2} =`;
+		result2.textContent = operate(operator, temp, num2);
+		temp = result2.textContent;
+		num1 = '';
+		return;
+	} else if(num2 === '') {
+		num2 = num1;
+		temp2 = num2;
+		result1.textContent = `${num1}  ${operatorSign} ${num2} =`;
+		result2.textContent = operate(operator, num1, num2);
+		temp = result2.textContent;
+		num1 = '';
+		executed = true;
+		return;
+	} else {
+		result1.textContent = `${num1}  ${operatorSign} ${num2} =`;
+		result2.textContent = operate(operator, num1, num2);
+		temp = result2.textContent;
+		temp2 = num2;
+		num1 = '';
+		num2 = '';
+		executed = true;
+	}
 })
+
 
 const btns = document.querySelectorAll("button");
 btns.forEach(function(button) {
@@ -103,6 +102,12 @@ btns.forEach(function(button) {
 })
 
 const clearBtn = document.querySelector('#clearBtn');
+clearBtn.addEventListener('click', () => {
+	num1 = '0';
+	num2 = ''
+	result1.textContent = '';
+	result2.textContent = 0;
+})
 
 function firstNumAndOp(textContent, name) {
 	operatorFunc = false;

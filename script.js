@@ -13,7 +13,9 @@ const result2 = document.querySelector('#two')
 result2.textContent = 0;
 
 const clearBtn = document.querySelector('#clearBtn');
-clearBtn.addEventListener('click', () => {
+clearBtn.addEventListener('click', clear);
+
+function clear() {
 	num1 = '0';
 	num2 = '';
 	result1.textContent = '';
@@ -21,11 +23,9 @@ clearBtn.addEventListener('click', () => {
 	operatorFunc = true;
 	operator = "";
 	operatorSign;
-	temp = '';
-	temp2 = '';
 	executed = false;
 	order = false;
-});
+}
 
 const backBtn = document.querySelector('#backBtn');
 backBtn.addEventListener('click', () => {
@@ -35,8 +35,12 @@ backBtn.addEventListener('click', () => {
 		} else if (num1.length === 1) {
 			num1 = '0';
 			result2.textContent = num1;
-		} else {
+		} else if (num1 !== ''){
 			num1 = num1.substring(0, num1.length-1);
+			result2.textContent = num1;
+		} else {
+			clear();
+			num1 = temp;
 			result2.textContent = num1;
 		}
 	} else if (!operatorFunc) {

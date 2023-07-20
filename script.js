@@ -41,6 +41,8 @@ function clear() {
 	operatorSign;
 	executed = false;
 	order = false;
+	temp = '';
+	temp2 = '';
 }
 
 function backOper() {

@@ -4,7 +4,6 @@ let operatorFunc = true;
 let operator = "";
 let operatorSign;
 let temp = '';
-let executed;
 
 const result1 = document.querySelector('#one')
 const result2 = document.querySelector('#two')
@@ -29,14 +28,12 @@ numBtns.forEach(function(button) {
 const operBtns = document.querySelectorAll("button#operateBtn");
 operBtns.forEach(function(button) {
 	button.addEventListener('click', () => {
-		if(executed === true) {
+		if(num1 === '' && num2 === '') {
 			num1 = temp;
-			operatorSign = button.textContent;
-		}
-		if (num2 === '') {
-		operatorFunc = false;
-		operatorSign = button.textContent;
-		result1.textContent = `${num1}  ${operatorSign} `;
+			firstNumAndOp(button.textContent);
+			getOperator(button.className);
+		} else if (num2 === '') {
+		firstNumAndOp(button.textContent);
 		getOperator(button.className);
 		}
 	})
@@ -58,18 +55,17 @@ equalBtn.forEach(function(button) {
 			result1.textContent = `${num1}  ${operatorSign} ${num2} =`;
 			result2.textContent = operate(operator, num1, num2);
 			temp = result2.textContent;
-			num1 = '0';
-			num2 = '';
 		}
+		num1 = '';
+		num2 = '';
 	})
 })
 
-const btns = document.querySelectorAll("button");
-btns.forEach(function(button) {
-	button.addEventListener('click', () => {
-		console.log(temp);
-	})
-})
+function firstNumAndOp(textContent) {
+	operatorFunc = false;
+	operatorSign = textContent;
+	result1.textContent = `${num1}  ${operatorSign} `;
+}
 
 function getOperator(name) {
 	switch(name) {

@@ -7,10 +7,34 @@ let temp = '';
 let temp2 = '';
 let executed = false;
 let order = false;
+let decimal = false;
 
 const result1 = document.querySelector('#one')
 const result2 = document.querySelector('#two')
 result2.textContent = 0;
+
+const decimalBtn = document.querySelector('#decimalBtn');
+decimalBtn.addEventListener('click', () => {
+	if (operatorFunc === true) {
+		if (decimal === true) {
+			return;
+		} else {
+			num1 = num1 + '.';
+			result2.textContent = num1;
+		}
+	} else if (!operatorFunc) {
+		if (decimal === true) {
+			return;
+		} else if (num2 === '') {
+			num2 = '0.';
+			result2.textContent = num2;
+		} else {
+			num2 = num2 + '.';
+			result2.textContent = num2;
+		}
+	}
+	decimal = true;
+})
 
 const clearBtn = document.querySelector('#clearBtn');
 clearBtn.addEventListener('click', clear);
@@ -77,6 +101,7 @@ numBtns.forEach(function(button) {
 const operBtns = document.querySelectorAll("button#operateBtn");
 operBtns.forEach(function(button) {
 	button.addEventListener('click', () => {
+		decimal = false;
 		if(num1 !== '' && num2 !== '' && order === true) {
 			temp = operate(operator, num1, num2);
 			num1 = temp;
@@ -103,6 +128,7 @@ operBtns.forEach(function(button) {
 
 const equalBtn = document.querySelector("#equalBtn");
 equalBtn.addEventListener('click', () => {
+	decimal = false;
 	if (!operatorSign) {
 		result1.textContent = `${num1} =`;
 		result2.textContent = num1;
@@ -157,12 +183,12 @@ function operate(operator, num1, num2) {
 	operatorFunc = true;
     switch (operator) {
         case "add":
-            return +num1 + +num2;
+            return Math.round((+num1 + +num2) * 10**20) / 10**20;
         case "subtract":
-            return num1 - num2;
+            return Math.round((num1 - num2) * 10**20) / 10**20;
         case "multiply":
-            return num1 * num2;
+            return Math.round((num1 * num2) * 10**20) / 10**20;
         case "divide":
-            return num1 / num2;
+            return Math.round((num1 / num2) * 10**20) / 10**20;
     }
 }

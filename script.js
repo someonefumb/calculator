@@ -192,8 +192,8 @@ document.addEventListener('keydown', (event) => {
 		getOperator(event.key, "add");
 	} else if (event.key === '-') {
 		getOperator(event.key, "subtract");
-	} else if (event.key === '*') {
-		getOperator(event.key, "multiply");
+	} else if (event.key === '*' || event.key === 'x') {
+		getOperator('*', "multiply");
 	} else if (event.key === '/') {
 		getOperator(event.key, "divide");
 	} else if (event.key === '=' || event.key === 'Enter') {

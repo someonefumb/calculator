@@ -1,0 +1,64 @@
+* {
+    font-size: 20px;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: grid;
+    gap: 10px;
+    grid-template:
+        "a a b b" 50px
+        "c c c c" 50px
+        "d d d d" 50px
+        "e e e e" 50px
+        "f f g g" 50px / 50px 50px 50px 50px
+}
+
+#equalBtn {
+    grid-area: g;
+    background-color: rgba(253, 74, 51, 0.63);
+}
+
+#clearBtn {
+    grid-area: a;
+}
+
+.display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    height: 90px;
+    width: 230px;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.89);
+    margin-bottom: 20px;
+}
+
+#one {
+    padding-right: 10px;
+    font-size: 20px;
+    height: 15px;
+}
+
+#two {
+    padding-right: 10px;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.calc {
+    padding: 20px;
+    border: 5px black solid;
+    background-color: rgb(204, 203, 203);
+}

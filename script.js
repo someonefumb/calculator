@@ -21,6 +21,7 @@ numBtns.forEach(function(button) {
 			num1 += button.textContent;
 			result1.textContent = '';
 			result2.textContent = num1;
+			num2 = '';
 		} else if (!operatorFunc) {
 			num2 += button.textContent;
 			result1.textContent = `${num1}  ${operatorSign} ${num2}`;
@@ -35,39 +36,33 @@ operBtns.forEach(function(button) {
 		if(num1 !== '' && num2 !== '' && order === true) {
 			temp = operate(operator, num1, num2);
 			num1 = temp;
-			firstNumAndOp(button.textContent);
-			getOperator(button.className);
+			firstNumAndOp(button.textContent, button.className);
 			result2.textContent = temp;
 			num2 = '';
 			order = false;
 		} else if (executed === true) {
 			num1 = temp;
 			num2 = '';
-			firstNumAndOp(button.textContent);
-			getOperator(button.className);
+			firstNumAndOp(button.textContent, button.className);
 		} else if(num1 === '' && num2 === '') {
 			num1 = temp;
-			firstNumAndOp(button.textContent);
-			getOperator(button.className);
+			firstNumAndOp(button.textContent, button.className);
 		} else if (num2 === '') {
-			firstNumAndOp(button.textContent);
-			getOperator(button.className);
+			firstNumAndOp(button.textContent, button.className);
 		} else {
 			num2 = '';
-			firstNumAndOp(button.textContent);
-			getOperator(button.className);
+			firstNumAndOp(button.textContent, button.className);
 		}
 		order = true;
 	})
 })
 
-const equalBtn = document.querySelectorAll("button#equalBtn");
+const equalBtn = document.querySelectorAll("#equalBtn");
 equalBtn.forEach(function(button) {
 	button.addEventListener('click', () => {
 		if (!operatorSign) {
 			result1.textContent = `${num1} =`;
 			result2.textContent = num1;
-			temp = result2.textContent;
 			return;
 		} else if (executed === true){
 			num2 = temp2;
@@ -107,10 +102,13 @@ btns.forEach(function(button) {
 	})
 })
 
-function firstNumAndOp(textContent) {
+const clearBtn = document.querySelector('#clearBtn');
+
+function firstNumAndOp(textContent, name) {
 	operatorFunc = false;
 	operatorSign = textContent;
 	result1.textContent = `${num1}  ${operatorSign} `;
+	getOperator(name);
 }
 
 function getOperator(name) {return operator = name};

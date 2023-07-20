@@ -9,12 +9,7 @@ let executed = false;
 let order = false;
 let decimal = false;
 
-const result1 = document.querySelector('#one')
-const result2 = document.querySelector('#two')
-result2.textContent = 0;
-
-const decimalBtn = document.querySelector('#decimalBtn');
-decimalBtn.addEventListener('click', () => {
+function decimalOper(){
 	if (operatorFunc === true) {
 		if (decimal === true) {
 			return;
@@ -27,17 +22,13 @@ decimalBtn.addEventListener('click', () => {
 			return;
 		} else if (num2 === '') {
 			num2 = '0.';
-			result2.textContent = num2;
 		} else {
 			num2 = num2 + '.';
-			result2.textContent = num2;
 		}
+		result2.textContent = num2;
 	}
 	decimal = true;
-})
-
-const clearBtn = document.querySelector('#clearBtn');
-clearBtn.addEventListener('click', clear);
+};
 
 function clear() {
 	num1 = '0';
@@ -51,8 +42,7 @@ function clear() {
 	order = false;
 }
 
-const backBtn = document.querySelector('#backBtn');
-backBtn.addEventListener('click', () => {
+function backOper() {
 	if (operatorFunc === true) {
 		if (num1 === '0') {
 			return;
@@ -78,56 +68,58 @@ backBtn.addEventListener('click', () => {
 			result2.textContent = num2;
 		}
 	}
-});
+}
 
-const numBtns = document.querySelectorAll("button#numberBtn");
-numBtns.forEach(function(button) {
-	button.addEventListener('click', () => {
-		executed = false;
-		if (operatorFunc === true) {
-			if(num1 === '0') num1 = '';
-			num1 += button.textContent;
-			result1.textContent = '';
-			result2.textContent = num1;
-			num2 = '';
-		} else if (!operatorFunc) {
-			if(num2 === '0') num2 = '';
-			num2 += button.textContent;
-			result2.textContent = num2;
-		}
-	})
-})
+function getNum(num) {
+	executed = false;
+	if (operatorFunc === true) {
+		if(num1 === '0') num1 = '';
+		num1 += num;
+		result1.textContent = '';
+		result2.textContent = num1;
+		num2 = '';
+	} else if (!operatorFunc) {
+		if(num2 === '0') num2 = '';
+		num2 += num;
+		result2.textContent = num2;
+	}
+}
 
-const operBtns = document.querySelectorAll("button#operateBtn");
-operBtns.forEach(function(button) {
-	button.addEventListener('click', () => {
-		decimal = false;
-		if(num1 !== '' && num2 !== '' && order === true) {
-			temp = operate(operator, num1, num2);
-			num1 = temp;
-			firstNumAndOp(button.textContent, button.className);
-			result2.textContent = temp;
-			num2 = '';
-			order = false;
-		} else if (executed === true) {
-			num1 = temp;
-			num2 = '';
-			firstNumAndOp(button.textContent, button.className);
-		} else if(num1 === '' && num2 === '') {
-			num1 = temp;
-			firstNumAndOp(button.textContent, button.className);
-		} else if (num2 === '') {
-			firstNumAndOp(button.textContent, button.className);
-		} else {
-			num2 = '';
-			firstNumAndOp(button.textContent, button.className);
-		}
-		order = true;
-	})
-})
+function getOperator(textContent, name) {
+	decimal = false;
+	if(num1 !== '' && num2 !== '' && order === true) {
+		temp = operate(operator, num1, num2);
+		num1 = temp;
+		firstNumAndOp(textContent, name)
+		result2.textContent = temp;
+		num2 = '';
+		order = false;
+	} else if (executed === true) {
+		num1 = temp;
+		num2 = '';
+		firstNumAndOp(textContent, name);
+	} else if(num1 === '' && num2 === '') {
+		num1 = temp;
+		firstNumAndOp(textContent, name);
+	} else if (num2 === '') {
+		firstNumAndOp(textContent, name);
+	} else {
+		num2 = '';
+		firstNumAndOp(textContent, name);
+	}
+	order = true;
+}
 
-const equalBtn = document.querySelector("#equalBtn");
-equalBtn.addEventListener('click', () => {
+function firstNumAndOp(textContent, name) {
+	operatorFunc = false;
+	operatorSign = textContent;
+	result1.textContent = `${num1}  ${operatorSign} `;
+	operatorName(name);
+}
+
+function operatorName(name) {return operator = name};
+
+function equalsOper() {
 	decimal = false;
 	if (!operatorSign) {
 		result1.textContent = `${num1} =`;
@@ -158,16 +150,43 @@ equalBtn.addEventListener('click', () => {
 		num2 = '';
 		executed = true;
 	}
-})
-
-function firstNumAndOp(textContent, name) {
-	operatorFunc = false;
-	operatorSign = textContent;
-	result1.textContent = `${num1}  ${operatorSign} `;
-	getOperator(name);
 }
 
-function getOperator(name) {return operator = name};
+const result1 = document.querySelector('#one')
+const result2 = document.querySelector('#two')
+result2.textContent = 0;
+
+const decimalBtn = document.querySelector('#decimalBtn');
+decimalBtn.addEventListener('click', decimalOper)
+
+const clearBtn = document.querySelector('#clearBtn');
+clearBtn.addEventListener('click', clear);
+
+const backBtn = document.querySelector('#backBtn');
+backBtn.addEventListener('click', backOper);
+
+const numBtns = document.querySelectorAll("#numberBtn");
+numBtns.forEach(function(button) {
+	button.addEventListener('click', () => {
+		getNum(button.textContent);
+	});
+});
+
+const operBtns = document.querySelectorAll("#operateBtn");
+operBtns.forEach(function(button) {
+	button.addEventListener('click', () => {
+		getOperator(button.textContent, button.className);
+	})
+})
+
+const equalBtn = document.querySelector("#equalBtn");
+equalBtn.addEventListener('click', () => {
+	equalsOper();
+})
+
+document.addEventListener('keydown', (event) => {
+	console.log(event);
+})
 
 function operate(operator, num1, num2) {
 	operatorFunc = true;

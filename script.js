@@ -160,16 +160,6 @@ equalBtn.addEventListener('click', () => {
 	}
 })
 
-const btns = document.querySelectorAll("button");
-btns.forEach(function(button) {
-	button.addEventListener('click', () => {
-		console.log(`number1 ${num1}`);
-		console.log(`number2 ${num2}`);
-		console.log(`temp ${temp}`);
-		console.log(`temp2 ${temp2}`);
-	})
-})
-
 function firstNumAndOp(textContent, name) {
 	operatorFunc = false;
 	operatorSign = textContent;
@@ -183,12 +173,12 @@ function operate(operator, num1, num2) {
 	operatorFunc = true;
     switch (operator) {
         case "add":
-            return Math.round((+num1 + +num2) * 10**20) / 10**20;
+            return Math.round((+num1 + +num2) * 10**10) / 10**10;
         case "subtract":
-            return Math.round((num1 - num2) * 10**20) / 10**20;
+            return Math.round((num1 - num2) * 10**10) / 10**10;
         case "multiply":
-            return Math.round((num1 * num2) * 10**20) / 10**20;
+            return Math.round((num1 * num2) * 10**10) / 10**10;
         case "divide":
-            return Math.round((num1 / num2) * 10**20) / 10**20;
+            return Math.round((num1 / num2) * 10**10) / 10**10;
     }
 }

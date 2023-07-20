@@ -186,7 +186,7 @@ equalBtn.addEventListener('click', () => {
 })
 
 document.addEventListener('keydown', (event) => {
-	if (event.code.includes("Digit")) {
+	if (event.code.includes("Digit") || event.code.includes("Numpad")) {
 		getNum(event.key);
 	} else if (event.key === '+') {
 		getOperator(event.key, "add");

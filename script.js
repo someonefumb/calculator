@@ -4,6 +4,8 @@ let operatorFunc = true;
 let operator = "";
 let operatorSign;
 let temp = '';
+let temp2 = '';
+let executed = false;
 
 const result1 = document.querySelector('#one')
 const result2 = document.querySelector('#two')
@@ -12,6 +14,7 @@ result2.textContent = 0;
 const numBtns = document.querySelectorAll("button#numberBtn");
 numBtns.forEach(function(button) {
 	button.addEventListener('click', () => {
+		executed = false;
 		if (operatorFunc === true) {
 			if(num1 === '0') num1 = '';
 			num1 += button.textContent;
@@ -28,13 +31,22 @@ numBtns.forEach(function(button) {
 const operBtns = document.querySelectorAll("button#operateBtn");
 operBtns.forEach(function(button) {
 	button.addEventListener('click', () => {
-		if(num1 === '' && num2 === '') {
+		if (executed === true) {
+			num1 = temp;
+			num2 = '';
+			firstNumAndOp(button.textContent);
+			getOperator(button.className);
+		} else if(num1 === '' && num2 === '') {
 			num1 = temp;
 			firstNumAndOp(button.textContent);
 			getOperator(button.className);
 		} else if (num2 === '') {
 		firstNumAndOp(button.textContent);
 		getOperator(button.className);
+		} else {
+			num2 = '';
+			firstNumAndOp(button.textContent);
+			getOperator(button.className);
 		}
 	})
 })
@@ -45,19 +57,39 @@ equalBtn.forEach(function(button) {
 		if (!operatorSign) {
 			result1.textContent = `${num1} =`;
 			result2.textContent = num1;
-			num1 = '';
+			temp = result2.textContent;
+			return;
+		} else if (executed === true){
+			num2 = temp2;
+			result1.textContent = `${temp}  ${operatorSign} ${num2} =`;
+			result2.textContent = operate(operator, temp, num2);
+			temp = result2.textContent;
+			return;
 		} else if(num2 === '') {
 			result1.textContent = `${num1}  ${operatorSign} ${num1} =`;
 			result2.textContent = operate(operator, num1, num1);
-			num1 = '0';
-			operatorSign = '';
+			temp = result2.textContent;
+			num1 = '';
+			return;
 		} else {
 			result1.textContent = `${num1}  ${operatorSign} ${num2} =`;
 			result2.textContent = operate(operator, num1, num2);
 			temp = result2.textContent;
+			temp2 = num2;
+			num1 = '';
+			num2 = '';
+			executed = true;
 		}
-		num1 = '';
-		num2 = '';
+	})
+})
+
+const btns = document.querySelectorAll("button");
+btns.forEach(function(button) {
+	button.addEventListener('click', () => {
+		console.log(`number1 ${num1}`);
+		console.log(`number2 ${num2}`);
+		console.log(`temp ${temp}`);
+		console.log(`temp2 ${temp2}`);
 	})
 })
 
@@ -67,18 +99,7 @@ function firstNumAndOp(textContent) {
 	result1.textContent = `${num1}  ${operatorSign} `;
 }
 
-function getOperator(name) {
-	switch(name) {
-		case "add":
-			return operator = "add"
-		case "subtract":
-			return operator = "subtract";
-		case "multiply":
-			return operator = 'multiply';
-		case "divide":
-			return operator = "divide";
-	}
-}
+function getOperator(name) {return operator = name};
 
 function operate(operator, num1, num2) {
 	operatorFunc = true;

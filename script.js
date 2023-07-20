@@ -66,10 +66,13 @@ equalBtn.forEach(function(button) {
 			temp = result2.textContent;
 			return;
 		} else if(num2 === '') {
-			result1.textContent = `${num1}  ${operatorSign} ${num1} =`;
-			result2.textContent = operate(operator, num1, num1);
+			num2 = num1;
+			temp2 = num2;
+			result1.textContent = `${num1}  ${operatorSign} ${num2} =`;
+			result2.textContent = operate(operator, num1, num2);
 			temp = result2.textContent;
 			num1 = '';
+			executed = true;
 			return;
 		} else {
 			result1.textContent = `${num1}  ${operatorSign} ${num2} =`;

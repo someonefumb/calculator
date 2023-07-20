@@ -11,6 +11,7 @@ let decimal = false;
 
 function decimalOper(){
 	if (operatorFunc === true) {
+		num1.includes('.') ? decimal = true : decimal = false;
 		if (decimal === true) {
 			return;
 		} else {
@@ -18,6 +19,7 @@ function decimalOper(){
 			result2.textContent = num1;
 		}
 	} else if (!operatorFunc) {
+		num2.includes('.') ? decimal = true : decimal = false;
 		if (decimal === true) {
 			return;
 		} else if (num2 === '') {
@@ -27,7 +29,6 @@ function decimalOper(){
 		}
 		result2.textContent = num2;
 	}
-	decimal = true;
 };
 
 function clear() {

@@ -33,7 +33,7 @@ backBtn.addEventListener('click', () => {
 		if (num1 === '0') {
 			return;
 		} else if (num1.length === 1) {
-			num1 = 0;
+			num1 = '0';
 			result2.textContent = num1;
 		} else {
 			num1 = num1.substring(0, num1.length-1);
@@ -43,7 +43,7 @@ backBtn.addEventListener('click', () => {
 		if (num2 === '0') {
 			return;
 		} else if (num2.length === 1) {
-			num2 = 0;
+			num2 = '0';
 			result2.textContent = num2;
 		} else {
 			num2 = num2.substring(0, num2.length-1);
